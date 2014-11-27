@@ -1,0 +1,385 @@
+grammar fr.inria.lang.VM with org.eclipse.xtext.common.Terminals
+generate vM "http://www.inria.fr/lang/VM"
+
+/*
+ * @name Variability Modeling (VM) language grammar
+ * @version: 2.1 (models created with previous versions are incompatible)
+ * @description: This version replaces the version VM2.0 located in https://github.com/ViViD-DiverSE/VM-Source which was used in the MOTIV project that finished in November, 2014. 
+ * @author: Mauricio Alferez (mauricioalferez.com), based on Mathieu Acher (mathieuacher.com) VM1.0
+ * @email: alferez.mauricio@gmail.com
+ * @organization: DiverSE group at INRIA, Rennes, France (http://diverse.irisa.fr)
+ * @date: 18/07/2013 - First commit
+ */
+
+Model:
+	(blocks+=VmBlock)*
+;
+VmBlock :
+	PackageDeclaration | ImportDeclaration |  MetaDataDeclaration  | Relationships  | Attributes | Descriptions | Constraints | Objectives |  Configurations
+;
+
+PackageDeclaration:
+	'package' name=QualifiedName '{'
+	(blocks +=VmBlock)*
+	'}';
+	
+ImportDeclaration:
+	'import' importedNamespace=QualifiedNameWithWildcard;
+	
+MetaDataDeclaration:
+	'@name' name=STRING &
+	('@version' version=Version)? &
+	('@description' description=STRING)? &
+	('@author' author=STRING)? &
+	('@email' email=Email)? &
+	('@organization' organization=STRING)? &
+	('@publication' publication=STRING)? &
+	('@date' date=STRING)?;
+ 
+Email:
+	username=QualifiedName '@' domain=QualifiedName;
+
+Version:
+	main=INT ('.' tail +=INT)*;
+
+/**
+ * 1. RELATIONSHIPS CHAPTER
+ */
+		Relationships:
+			'Relationships:'
+			root=FeatureHierarchy;
+			
+		FeatureHierarchy:
+			parent=Feature '{'
+			children+=FeatureDefinition+ '}';
+		FeatureDefinition:
+			Feature
+			| FeaturesGroup
+			| FeatureHierarchy;
+		Feature:
+		((notTranslatable?=('@NT'|'@NotTranslatable'))? (runTime?=('@RT'|'@RunTime'))? (notDecidable?=("@ND"|'@NotDecideable'))?)
+		(optional?='?')?
+		(('cloneBetween' min=Integer 'and' max=Integer) |
+			('[' min=Integer '..' max=Integer ']'))?
+		name=ID;
+		 
+		FeaturesGroup:
+			Xorgroup | Orgroup | CardinalityBased; //| Mutexgroup
+		Xorgroup:
+			'oneOf' '{' groupedFeatures+=(Feature | FeatureHierarchy) (groupedFeatures+=(Feature | FeatureHierarchy))+ '}';
+		Orgroup:
+			'someOf' '{' groupedFeatures+=(Feature | FeatureHierarchy) (groupedFeatures+=(Feature | FeatureHierarchy))+ '}';
+		CardinalityBased:
+			(('someBetween' min=Integer 'and' max=Integer) | ('[' min=Integer '..' (max=Integer | all?='*') ']'))'{' groupedFeatures+=(Feature | FeatureHierarchy) (groupedFeatures+=(Feature | FeatureHierarchy))+ '}';
+		
+/**
+ * 2. ATTRIBUTES CHAPTER
+ */	
+		Attributes:
+			'Attributes:' (
+				attrDefs+=AttrDef
+				| attrValuations+=BasicAttrValuation
+				)+;
+		/*
+		 * mao 23/07/2013: The purpose of dividing basic attributes is to ease type checking
+		 * 
+		 */		
+		AttrDef:
+		((notTranslatable?=('@NT'|'@NotTranslatable'))? (runTime?=('@RT'|'@RunTime'))? (notDecidable?=("@ND"|'@NotDecideable'))?)
+			(basicAttrDef=BasicAttrDef | enumAttrDef=EnumAttrDef);
+		BasicAttrDef:
+			BooleanAttrDef | StringAttrDef | IntegerAttrDef | RealAttrDef;
+		BooleanAttrDef:
+			'boolean' name=Boolean_ATT_ID ('=' value=('true' | 'false'))? (default=BoolDefaultDef)?;
+		StringAttrDef:
+			'string' name=String_ATT_ID ('=' value=STRING)? default=StringDefaultDef? ;
+		IntegerAttrDef: 
+			IntegerAttrDefBounded | IntegerAttrDefUnbounded;
+		IntegerAttrDefBounded:
+			'int' name=Integer_ATT_ID
+				(complements+=IntegerAttrDefComplement (complement+=IntegerAttrDefComplement)*)
+				default=IntegerDefaultDef?;
+		IntegerAttrDefComplement:
+			'[' min=Integer '..' max=Integer ']' (delta=IntegerDeltaDef)?;
+		IntegerAttrDefUnbounded :
+			'int' name=Integer_ATT_ID (('=' value=Integer) | default=IntegerDefaultDef)?;//mao 5/2/2014, delta MUST NOT be considered in an unbounded attribute definition.
+		
+		RealAttrDef:
+			RealAttrDefBounded | RealAttrDefUnbounded;
+		RealAttrDefBounded:
+			'real' name=Real_ATT_ID
+				(complement+=RealAttrDefComplement (complement+=RealAttrDefComplement)*)
+				default=RealDefaultDef?;
+		RealAttrDefComplement:
+			'[' min=Real '..' max=Real ']' (delta=RealDeltaDef)?;
+		RealAttrDefUnbounded:
+			'real' name=Real_ATT_ID (('=' value=Real) | default=RealDefaultDef)?;//mao 5/2/2014, delta MUST NOT be considered in an unbounded attribute definition.
+			
+		/*
+		 * mao 23/07/2013: The purpose of dividing enumerations is to type check that all the enumerated values are identified and treated as members of the same domain
+		 * 
+		 */
+		EnumAttrDef:
+			(EnumIntegerDef | EnumStringDef | EnumRealDef);
+		EnumStringDef:
+			'enum' name=Enum_String_ATT_ID '[' value+=STRING (',' value+=STRING)+ ']' (default=StringDefaultDef)?;
+		EnumIntegerDef:
+			'enum' name=Enum_Integer_ATT_ID '[' value+=Integer (',' value+=Integer)+ ']' (default=IntegerDefaultDef)?;
+		EnumRealDef:
+			'enum' name=Enum_Real_ATT_ID '[' value+=Real (',' value+=Real)+ ']' (default=RealDefaultDef)?;
+		
+		BoolDefaultDef:
+			'default' value=('true' | 'false');
+		StringDefaultDef:
+			'default' value=STRING;		
+		IntegerDeltaDef:
+			'delta' value=INT;
+		IntegerDefaultDef:
+			'default' value=INT;
+		RealDeltaDef:
+			'delta' value=Real;
+		RealDefaultDef:
+			'default' value=Real;
+	
+/*
+ * 3. DESCRIPTIONS CHAPTER
+ */
+		Descriptions:
+			'Descriptions:' (featuresDescriptions+=FeatureDescription | attributesDescriptions+=AttributeDescription)+;
+		FeatureDescription:
+			//'feat' refFeat=[Feature|QualifiedName] "is" description=STRING; //mao 27/11/2013 The symbol '|' does not mean the logic Or. "|" rather allows to reference a feature using the syntax of a qualified name (i.e., packageA.subpackageB.featureC)
+			'feat' refFeat=[Feature] "is" description=STRING;   
+		AttributeDescription:
+			//'att' ('*.' | refAtt=[Abstract_ATT_ID|QualifiedName]) "is" description=STRING;  //mao 27/11/2013 The symbol '|' does not mean the logic Or. "|" rather allows to reference an attribute using the syntax of a qualified name (i.e., packageA.subpackageB.featureC.attributeD)
+			'att' ('*.' | refFeat=[Feature] '.')? refAtt=[Abstract_ATT_ID] "is" description=STRING;
+/*
+ * 4. CONSTRAINTS CHAPTER
+ * 
+ */
+ 	Constraints:
+		'Constraints:' constraints+=Constraint+;
+ 
+ 	Constraint:
+		('constraint' name=ID '=')?
+		expression=SubExpression0;
+
+	SubExpression0 returns ComplexExpression://if then else
+ 		SubExpression1 =>({If.left=current} '?' right+=SubExpression0 ':' right+=SubExpression1)*;
+
+	SubExpression1 returns ComplexExpression://a implies b
+ 		SubExpression2 =>({LeftImplication.left=current}'<-' right=SubExpression2)*;
+ 
+	SubExpression2 returns ComplexExpression://b implies a
+		SubExpression3 =>({RightImplication.left=current}'->' right=SubExpression3)*;
+		
+	SubExpression3 returns ComplexExpression:// a iff b
+ 		SubExpression4 =>({BiImplication.left=current}'<->' right=SubExpression4)*;
+ 
+	SubExpression4 returns ComplexExpression://or
+ 		SubExpression5 =>({Or.left=current}'||' right=SubExpression5)*;
+ 
+	SubExpression5 returns ComplexExpression://and
+ 		SubExpression6 =>({And.left=current}'&&' right=SubExpression6)*;
+ 
+	SubExpression6 returns ComplexExpression:// a == b, a !=b
+  		SubExpression7 =>((({Equality.left=current}'==' | {Inequality.left=current}'!=') right=SubExpression7)*)?;
+ 
+	SubExpression7 returns ComplexExpression:
+ 		SubExpression8 =>
+ 		(
+ 			(
+ 			{Less.left=current} '<' =>({Lessequal.left=current} '=')?
+ 			|{Greater.left=current} '>'=>({Greaterequal.left=current} '=')?
+ 			)
+ 			right=SubExpression8
+ 		)*;
+ 
+	SubExpression8 returns ComplexExpression:
+ 		SubExpression9 =>(({Plus.left=current}'+'| {Minus.left=current}'-') right=SubExpression9)*;
+ 
+	SubExpression9 returns ComplexExpression:
+ 		SubExpression10 =>(({Multiplication.left=current}'*'| {Division.left=current}'/') right=SubExpression10)*;
+ 
+	SubExpression10 returns ComplexExpression:
+ 		Expression =>( ({Excludes.left=current}'excludes' | {Requires.left=current}'requires') right=Expression)*;
+	
+	Expression:
+		NumericExpression |
+		BooleanExpression | 
+		BrackedExpression |
+		StringExpression |
+		SpecialExpression |
+		PrimitiveExpression
+	;
+
+	SpecialExpression:
+		op='clonesOf' expression=[Feature]
+	;
+	
+	StringExpression:
+		value = STRING
+	;
+
+	PrimitiveExpression :
+		featureID=[Feature]
+		| (head=AttHead refAtt=[Abstract_ATT_ID])
+	;
+
+	BooleanExpression :
+		value='true'
+		| value='false'	
+		| op='!' expression=BooleanExpression
+		| op='or' '(' (expression_list=BooleanExpression_List ) ')'
+		| op='xor' '(' (expression_list=BooleanExpression_List) ')'
+		| op='and' '(' (expression_list=BooleanExpression_List ) ')'
+	;
+	BrackedExpression :
+		'(' expression=SubExpression0 ')';
+	
+	NumericExpression:
+		value=Integer
+		| value=Real
+		| op='neg' expression=NumericExpression 
+		| op='abs' expression=NumericExpression
+		| op='avg' '(' (expression_list=NumericExpression_List) ')' 
+		| op='max' '(' (expression_list=NumericExpression_List) ')' 
+		| op='min' '(' (expression_list=NumericExpression_List) ')' 
+		| op='mul' '(' (expression_list=NumericExpression_List) ')' 
+		| op='sum' '(' (expression_list=NumericExpression_List) ')'
+	;
+	NumericExpression_List:
+		ex+=NumericExpression (',' ex+=NumericExpression)*
+	;	
+	BooleanExpression_List:
+		ex+=BooleanExpression (',' ex+=BooleanExpression)*;
+
+
+/**
+ * 5. OBJECTIVES CHAPTER
+ */			
+ 	Objectives: 
+ 		'Objectives:' objectives+=Objective+;
+	Objective:
+		'objective' name=ID '{'
+		 	(op='max' '(' expression = ObjectiveExpression ')'
+		 	| op= 'min' '(' expression = ObjectiveExpression ')')
+		 	//|   mao: 4/03/2014: other operators will be added if needed. The only examples that I have now uses Minimization or Maximization
+		'}';
+	ObjectiveExpression:
+		op='sum' '(' expression = PrimitiveExpression ')'
+		//|   mao: 4/03/2014: other operators will be added if needed. The only examples that I have used are Sum, e.g., sum *.cost, which means, to sum the cost of all the features
+	;
+/**
+ * 6. CONFIGURATION CHAPTER
+ */			
+ 	Configurations: 
+ 		'Configurations:' configurations+=Configuration+;
+	Configuration:
+		'configuration' name=ID '{'
+		 (
+		 	booleanValuation+= BooleanValuation |  //mao: 14/01/2013: this works well for boolean variability models
+		 	extendedValuation+= ExtendedValuation //mao: 14/01/2013: this works well for extended or cardinality-based feature models		 	
+		 )+
+		 '}';
+	BooleanValuation:
+		(notSelected?='!')? feature = [Feature] 	//it simplifies the way to write FEATURE.selected = true to only write the feature name		
+	;
+	
+	ExtendedValuation:
+		(BasicAttrValuation | AdvancedAttrValuation)  
+	; 
+	BasicAttrValuation:
+		StringAttrValuation | BooleanAttrValuation | IntegerAttrValuation | RealAttrValuation;
+	RealAttrValuation:
+		head=AttHead? refAtt=[Real_ATT_ID] '=' value=Real; //mao: I will create later a 'real expression' instead of just Real
+	IntegerAttrValuation:
+		head=AttHead? refAtt=[Integer_ATT_ID] '=' value=Integer;
+	BooleanAttrValuation:
+		head=AttHead? refAtt=[Boolean_ATT_ID] '=' value=('true' | 'false');
+	StringAttrValuation:
+		head=AttHead? refAtt=[String_ATT_ID] '=' value=STRING ;
+	
+	AdvancedAttrValuation:
+		(attVsVal=TableBasedValuationByFeature) | (featVsVal+=TableBasedValuationByAttribute) | 
+		(attVsValForMultiFeature=TableBasedValuationByFeatureAndClone)
+		;
+	TableBasedValuationByFeatureAndClone:
+		(('attribute-value pairs for clone feature:' refFeature=[Feature] 'clone:' name=ID)| //long way
+		(refFeature=[Feature] '[' name=ID ']')) //short way
+		'{'
+			pairs+=PairAttributeValue (',' pairs+=PairAttributeValue)*
+		'}';
+	TableBasedValuationByFeature:
+		('attribute-value pairs for feature:')?
+		refFeature=[Feature] '{'
+			pairs+=PairAttributeValue (',' pairs+=PairAttributeValue)*
+		'}';
+	PairAttributeValue:
+		refAtt=[Real_ATT_ID] '=' value=Real  |
+		refAtt=[Integer_ATT_ID] '=' value=Integer|
+		refAtt=[Boolean_ATT_ID] '=' value=('true' | 'false')|
+		refAtt=[String_ATT_ID] '=' value=STRING;
+	TableBasedValuationByAttribute:
+		('feature-value pairs for attribute:')?
+		TableBasedValuationByAttributeForInteger | TableBasedValuationByAttributeForReal;
+	TableBasedValuationByAttributeForInteger:
+		refAtt=[Integer_ATT_ID] '{'
+			pairs+=PairFeatureInteger (',' pairs+=PairFeatureInteger)*
+		'}';
+	PairFeatureInteger:
+		refFeat=[Feature] '-' value=Integer;
+		
+	TableBasedValuationByAttributeForReal :
+		refAtt=[Real_ATT_ID] '{'
+			pairs+=PairFeatureReal (',' pairs+=PairFeatureReal)*
+		'}';
+	PairFeatureReal:
+		refFeat=[Feature] '-' value=Real;
+
+/*
+ * 7. TERMINALS and IDS CHAPTER
+ * 
+ */
+		Real:
+			Integer '.' INT;
+			
+		Integer:
+			('-')? INT;
+		
+		QualifiedName:
+			ID ('.' ID)*;
+
+		QualifiedNameWithWildcard:
+			QualifiedName '.*'?;
+		/**
+		 * mao 3/10/2013: The purpose of having att_id for each type of attribute is to guarantee type safety when writing expressions. 
+		 * The other alternative was to allow any combinations of operands in the expressions and operations. However, it would require to create runtime verification.
+		 * In other words, although the VM grammar seems a little bit verbose, it helps to guarantee type safety by construction and not by post-modeling type safety checking.    
+		 */
+		Boolean_ATT_ID:
+			head=AttHead name=ID;
+		
+		String_ATT_ID:
+			head=AttHead name=ID;
+		
+		Integer_ATT_ID:
+			head=AttHead name=ID;
+		
+		Real_ATT_ID:
+			head=AttHead name=ID;
+		
+		Enum_String_ATT_ID:
+			head=AttHead name=ID;
+		
+		Enum_Integer_ATT_ID:
+			head=AttHead name=ID;
+		
+		Enum_Real_ATT_ID:
+			head=AttHead name=ID;
+		
+		AttHead:
+			((forAllFeatures?='*.') | (ownedFeature=[Feature] '.'));
+		
+		Abstract_ATT_ID:
+			Boolean_ATT_ID | String_ATT_ID | Integer_ATT_ID | Real_ATT_ID | Enum_String_ATT_ID | Enum_Integer_ATT_ID |
+			Enum_Real_ATT_ID;

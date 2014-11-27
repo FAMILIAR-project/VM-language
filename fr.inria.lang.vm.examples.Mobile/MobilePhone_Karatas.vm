@@ -1,0 +1,42 @@
+@name "MobilePhone Karatas" 
+@version 1
+@description "Academic example of a Mobile Phone variability model"
+@author "Karatas et al."
+@email  karatas@ceng.metu.edu.tr
+@organization "Middle East Technical University, Department of Computer Engineering, Ankara, Turkey"
+@publication "From extended feature models to constraint logic programming, Science of Computer Programming, Elsevier, 2012"
+@date "2012"
+
+Relationships: 
+MobilePhone { 
+Hardware 
+	{
+	? ThreeGConnector
+	Screen 
+	Processors {
+	CPU 
+	? GPU
+	}
+	RAM
+	?GPS
+}
+? VideoCall 
+? TaskScheduler
+? Games {
+	SomeOf { 
+		Chess 
+		ThreeDCarRace
+		Tetris
+	}
+	}
+}
+
+Attributes: 
+int ThreeGConnector.speed [ 2 .. 14]
+int Screen.resolution [1 .. 4]
+int RAM.size [1 .. 2048]
+int VideoCall.mpc [2 .. 8]
+
+Descriptions:
+feat Chess is "a table game"
+att mpc is "maximum pair of connections"

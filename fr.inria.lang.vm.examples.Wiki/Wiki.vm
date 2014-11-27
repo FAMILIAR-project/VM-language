@@ -1,0 +1,47 @@
+package fr.inria.lang.vm.examples.Wiki {
+
+@name "Wiki"
+@version 0.1
+@description "Wiki feature model"
+@author "Mathieu"
+@organization "INRIA, Rennes, France"
+@date "18.11.2013"
+
+Relationships:
+Wiki {
+	? ProgrammingLanguage { 
+		oneOf {
+			Java
+			PHP	
+		}
+	}
+	Storage {
+		oneOf {
+			MySQL
+			PostgreSQL
+		}
+	}
+	License {
+		oneOf {
+			ProprietaryLicence
+			OpenSource
+		}
+	}
+}
+
+Attributes:
+int Java.learningCost [5..7]
+int PHP.learningCost [6..10]
+int Storage.learningCost [10..20]
+int MySQL.footprint [8..10]
+int PostgreSQL.footprint [4..8]
+string OpenSource.s
+enum OpenSource.version [ '2', '2.1', '3', '3.1']
+
+Constraints:
+constraint EQ = PostgreSQL <-> ProprietaryLicence
+constraint EX = ProprietaryLicence excludes ProgrammingLanguage   
+OpenSource.version == '2.1' -> PostgreSQL 
+Java.learningCost >= 6 -> MySQL 
+PHP.learningCost >= 7 <-> Storage.learningCost > 8
+}

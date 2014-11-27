@@ -1,0 +1,372 @@
+@name "AndroidApp Relationships" 
+@version 1
+@description "androidAppRels.vm is complemented by the information contained in androidAppAtts.vm, androidAppCons.vm, and androidAppDefs.vm
+This model allows different developers to create or generate particular configurations of an Android App's manifest.
+The manifest is a key part of an App and each application has an AndroidManifest.xml file in its root directory.
+The manifest file presents essential information about an App for the Android system to run the App's code."
+
+@author "Mauricio Alferez based on http://developer.android.com/guide/topics/manifest/manifest_intro.html"
+@email  alferez.mauricio@gmail.com
+@organization "INRIA, Rennes, France"
+@publication "N/A"
+@date "2014"
+
+package android.relationships {
+
+Relationships:
+manifest{
+	manifest_permission {//manifest.permission
+			someOf { access_checkin_properties 
+			   access_coarse_location 
+			   access_fine_location 
+			   access_location_extra_commands 
+			   access_mock_location 
+			   access_network_state 
+			   access_surface_flinger 
+			   access_wifi_state 
+			   account_manager 
+			   add_voicemail 
+			   authenticate_accounts 
+			   battery_stats 
+			   bind_accessibility_service 
+			   bind_appwidget 
+			   bind_device_admin 
+			   bind_input_method 
+			   bind_nfc_service 
+			   bind_notification_listener_service 
+			   bind_print_service 
+			   bind_remoteviews 
+			   bind_text_service 
+			   bind_vpn_service 
+			   bind_wallpaper 
+			   bluetooth 
+			   bluetooth_admin 
+			   bluetooth_privileged 
+			   body_sensors 
+			   brick 
+			   broadcast_package_removed 
+			   broadcast_sms 
+			   broadcast_sticky 
+			   broadcast_wap_push 
+			   call_phone 
+			   call_privileged 
+			   camera 
+			   capture_audio_output 
+			   capture_secure_video_output 
+			   capture_video_output 
+			   change_component_enabled_state 
+			   change_configuration 
+			   change_network_state 
+			   change_wifi_multicast_state 
+			   change_wifi_state 
+			   clear_app_cache 
+			   clear_app_user_data 
+			   control_location_updates 
+			   delete_cache_files 
+			   delete_packages 
+			   device_power 
+			   diagnostic 
+			   disable_keyguard 
+			   dump 
+			   expand_status_bar 
+			   factory_test 
+			   flashlight 
+			   force_back 
+			   get_accounts 
+			   get_package_size 
+			   get_tasks 
+			   get_top_activity_info 
+			   global_search 
+			   hardware_test 
+			   inject_events 
+			   install_location_provider 
+			   install_packages 
+			   install_shortcut 
+			   internal_system_window 
+			   internet 
+			   kill_background_processes 
+			   location_hardware 
+			   manage_accounts 
+			   manage_app_tokens 
+			   manage_documents 
+			   master_clear 
+			   media_content_control 
+			   modify_audio_settings 
+			   modify_phone_state 
+			   mount_format_filesystems 
+			   mount_unmount_filesystems 
+			   nfc 
+			   persistent_activity 
+			   process_outgoing_calls 
+			   read_calendar 
+			   read_call_log 
+			   read_contacts 
+			   read_external_storage 
+			   read_frame_buffer 
+			   read_history_bookmarks 
+			   read_input_state 
+			   read_logs 
+			   read_phone_state 
+			   read_profile 
+			   read_sms 
+			   read_social_stream 
+			   read_sync_settings 
+			   read_sync_stats 
+			   read_user_dictionary 
+			   reboot 
+			   receive_boot_completed 
+			   receive_mms 
+			   receive_sms 
+			   receive_wap_push 
+			   record_audio 
+			   reorder_tasks 
+			   restart_packages 
+			   send_respond_via_message 
+			   send_sms 
+			   set_activity_watcher 
+			   set_alarm 
+			   set_always_finish 
+			   set_animation_scale 
+			   set_debug_app 
+			   set_orientation 
+			   set_pointer_speed 
+			   set_preferred_applications 
+			   set_process_limit 
+			   set_time 
+			   set_time_zone 
+			   set_wallpaper 
+			   set_wallpaper_hints 
+			   signal_persistent_processes 
+			   status_bar 
+			   subscribed_feeds_read 
+			   subscribed_feeds_write 
+			   system_alert_window 
+			   transmit_ir 
+			   uninstall_shortcut 
+			   update_device_stats 
+			   use_credentials 
+			   use_sip 
+			   vibrate 
+			   wake_lock 
+			   write_apn_settings 
+			   write_calendar 
+			   write_call_log 
+			   write_contacts 
+			   write_external_storage 
+			   write_gservices 
+			   write_history_bookmarks 
+			   write_profile 
+			   write_secure_settings 
+			   write_settings 
+			   write_sms 
+			   write_social_stream 
+			   write_sync_settings 
+			   write_user_dictionary 
+			}
+		}
+	application {
+		application_permission {//application.permission
+			someOf { access_checkin_properties 
+			   access_coarse_location 
+			   access_fine_location 
+			   access_location_extra_commands 
+			   access_mock_location 
+			   access_network_state 
+			   access_surface_flinger 
+			   access_wifi_state 
+			   account_manager 
+			   add_voicemail 
+			   authenticate_accounts 
+			   battery_stats 
+			   bind_accessibility_service 
+			   bind_appwidget 
+			   bind_device_admin 
+			   bind_input_method 
+			   bind_nfc_service 
+			   bind_notification_listener_service 
+			   bind_print_service 
+			   bind_remoteviews 
+			   bind_text_service 
+			   bind_vpn_service 
+			   bind_wallpaper 
+			   bluetooth 
+			   bluetooth_admin 
+			   bluetooth_privileged 
+			   body_sensors 
+			   brick 
+			   broadcast_package_removed 
+			   broadcast_sms 
+			   broadcast_sticky 
+			   broadcast_wap_push 
+			   call_phone 
+			   call_privileged 
+			   camera 
+			   capture_audio_output 
+			   capture_secure_video_output 
+			   capture_video_output 
+			   change_component_enabled_state 
+			   change_configuration 
+			   change_network_state 
+			   change_wifi_multicast_state 
+			   change_wifi_state 
+			   clear_app_cache 
+			   clear_app_user_data 
+			   control_location_updates 
+			   delete_cache_files 
+			   delete_packages 
+			   device_power 
+			   diagnostic 
+			   disable_keyguard 
+			   dump 
+			   expand_status_bar 
+			   factory_test 
+			   flashlight 
+			   force_back 
+			   get_accounts 
+			   get_package_size 
+			   get_tasks 
+			   get_top_activity_info 
+			   global_search 
+			   hardware_test 
+			   inject_events 
+			   install_location_provider 
+			   install_packages 
+			   install_shortcut 
+			   internal_system_window 
+			   internet 
+			   kill_background_processes 
+			   location_hardware 
+			   manage_accounts 
+			   manage_app_tokens 
+			   manage_documents 
+			   master_clear 
+			   media_content_control 
+			   modify_audio_settings 
+			   modify_phone_state 
+			   mount_format_filesystems 
+			   mount_unmount_filesystems 
+			   nfc 
+			   persistent_activity 
+			   process_outgoing_calls 
+			   read_calendar 
+			   read_call_log 
+			   read_contacts 
+			   read_external_storage 
+			   read_frame_buffer 
+			   read_history_bookmarks 
+			   read_input_state 
+			   read_logs 
+			   read_phone_state 
+			   read_profile 
+			   read_sms 
+			   read_social_stream 
+			   read_sync_settings 
+			   read_sync_stats 
+			   read_user_dictionary 
+			   reboot 
+			   receive_boot_completed 
+			   receive_mms 
+			   receive_sms 
+			   receive_wap_push 
+			   record_audio 
+			   reorder_tasks 
+			   restart_packages 
+			   send_respond_via_message 
+			   send_sms 
+			   set_activity_watcher 
+			   set_alarm 
+			   set_always_finish 
+			   set_animation_scale 
+			   set_debug_app 
+			   set_orientation 
+			   set_pointer_speed 
+			   set_preferred_applications 
+			   set_process_limit 
+			   set_time 
+			   set_time_zone 
+			   set_wallpaper 
+			   set_wallpaper_hints 
+			   signal_persistent_processes 
+			   status_bar 
+			   subscribed_feeds_read 
+			   subscribed_feeds_write 
+			   system_alert_window 
+			   transmit_ir 
+			   uninstall_shortcut 
+			   update_device_stats 
+			   use_credentials 
+			   use_sip 
+			   vibrate 
+			   wake_lock 
+			   write_apn_settings 
+			   write_calendar 
+			   write_call_log 
+			   write_contacts 
+			   write_external_storage 
+			   write_gservices 
+			   write_history_bookmarks 
+			   write_profile 
+			   write_secure_settings 
+			   write_settings 
+			   write_sms 
+			   write_social_stream 
+			   write_sync_settings 
+			   write_user_dictionary 
+			}
+		}
+		activity {
+			? configChanges {//activity.configChanges 
+				someOf {mcc
+						mnc
+						locale
+						touchscreen
+						keyboard
+						keyboardHidden
+						navigation
+						screenLayout
+						fontScale
+						uiMode
+						orientation
+						screenSize
+						smallestScreenSize
+				}
+			}
+			? intent_filter { 
+				action
+				category
+				data
+			}
+			? meta_data
+		}
+		activity_alias {
+			? intent_filter { 
+				action
+				category
+				data
+			}
+			? meta_data
+		}
+		? meta_data 
+		service {
+			? intent_filter
+			? metadata
+		}
+		receiver 
+		provider
+		uses_library
+		}
+	? compatible_screens 
+	? instrumentation 
+	? permission 
+	? permission_group 
+	? permission_tree 
+	? supports_gl_texture 
+	? supports_screens 
+	? uses_configuration 
+	? uses_feature 
+	? uses_permission 
+	? uses_sdk
+}
+
+}
+

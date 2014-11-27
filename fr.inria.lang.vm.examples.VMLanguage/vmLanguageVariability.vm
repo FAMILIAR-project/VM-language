@@ -1,0 +1,120 @@
+@name "VM Variability"
+@version 1.0
+@description "First try to model the main features that mostly correspond
+			 to constructs in the VM language. Also, a couple of features represent
+			 abstract properties of the language, such as the features Modularity and TextualSyntax"
+@author "Mauricio Alfrez"
+@email mauricio.alferez@inria.fr
+@organization "INRIA, Rennes, France"
+@publication "Hopefully we will publish in RE2014, "	
+@date "20/02/2014"
+
+Relationships:
+VMLanguage{
+	Relationships {
+		Basic {
+			Or
+			Common
+			Optional
+			Alternative
+			Mandatory		
+		}
+		? AdvancedRelationships {
+			someOf {
+				Multifeatures
+				CardinalityBasedGroups
+			}
+		}
+	}
+	? ExtendedVariabiliy
+	Constraints {
+		Basic {
+			someOf {
+				Requires
+				Excludes
+			}
+		}
+		? AttributesConstraints
+	}
+	Attributes {
+		Kind {
+			BasicKind {
+				Boolean
+				? NotBoolean {
+					String
+					Integer
+					Real	
+				}
+			} 
+			? Enum
+		}
+		Domain {
+			someOf {
+				Bounded {
+					FixedValue
+					Range {
+						? DeltaValue
+					}
+				}
+				Unbounded
+			}
+		}
+		? DefaultValue
+	}
+	? ExtraVariability {
+		? MultiRanges {
+			? Multideltas
+		}
+		? Metainformation {
+			someOf {
+				ModelInformation
+				Descriptions
+				Annotations {
+					Runtime
+					NotTranslatable
+					NotDecision
+				}
+			}
+		}
+	}
+	TextualSyntax
+	Modularity {
+		CoarseGrained {
+			someOf {
+				PackageDeclaration
+				ImportDeclaration
+			}
+		}
+		? Medium
+		? FinedGrained
+	}
+	? Configurations {
+		ValuationType{
+			someOf {
+				BooleanValuation
+				ExtendedValuation {
+					someOf {
+						? AdvancedExtendedValuation {
+							someOf {
+								ByFeature
+								ByAttribute
+								ByClone
+							}
+						}
+						BasicExtendedValuation
+					}
+				}
+				
+			}
+		}
+	}
+}
+Constraints: 
+ExtendedVariabiliy -> AdvancedRelationships
+ExtendedVariabiliy -> AttributesConstraints
+ExtraVariability -> ExtendedVariabiliy
+ExtraVariability -> DefaultValue
+MultiRanges -> Range
+Multideltas -> DeltaValue
+ByAttribute -> Attributes
+ByClone -> Multifeatures

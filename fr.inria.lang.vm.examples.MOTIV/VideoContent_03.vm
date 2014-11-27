@@ -1,0 +1,132 @@
+package fr.inria.lang.vm.examples.MOTIV {
+
+@name "Video Content"
+@version 0.3
+@description "Third attempt to model the video content variability based
+			 	on the configuration file sent by Pierre ROMENTEAU. This version have some default values and changes the type of their attributes from INT to REAL"
+@author "Mauricio Alférez"
+@email mauricio.alferez@inria.fr
+@organization "INRIA, Rennes, France"
+@publication "Pierre ROMENTEAU, 'Video Content Variability Analysis',
+			 Project MOTIV, 19/07/2013: 2-9"	
+@date "January, 2014"
+
+Relationships:
+videoContent {
+	scene{
+		background
+		? objects {
+			targets{
+				[1..5] vehicle
+				[1..5] man
+			}
+			? distractors
+			? occultants
+		}
+	}
+	capturingConditions{
+		camera
+		capture
+	}
+	signal_quality
+}
+
+Attributes:
+
+/* 
+ * Old way that may be necessary if the interpreter is not ready to the new way
+enum vehicle.identifier [0, 1]
+real vehicle.motion[0.0 .. 1.0] delta 0.5 //I invented the delta
+real vehicle.appearance_change [0.0 .. 1.0] delta 0.5 //I invented the delta
+real vehicle.shadowed [0.0 .. 1.0] delta 0.5
+int vehicle.dust [0 .. 3] delta 1 //I invented the delta and the domain
+int vehicle.distance [0 .. 200] delta 50
+enum man.identifier  [0, 1]
+real man.motion [0.0 .. 1.0] delta 0.5 //I invented the delta
+real man.appearance_change [0.0 .. 1.0] delta 0.5 //I invented the delta 
+real man.shadowed [0.0 .. 1.0] delta 0.5 
+int man.distance [0 .. 200] delta 50
+*/
+//background
+enum background.identifier [0,1]// I invented the domain
+//targets
+enum targets.identifier [0, 1]
+real targets.motion[0.0 .. 1.0] delta 0.5 //I invented the delta
+real targets.appearance_change [0.0 .. 1.0] delta 0.5 //I invented the delta
+real targets.shadowed [0.0 .. 1.0] delta 0.5
+real vehicle.dust [0.0 .. 3.0] delta 0.5 //I invented the delta and the domain
+int targets.distance [0 .. 200] delta 50
+
+//Distractors
+real distractors.butterfly_level [0.0 .. 1.0] delta 0.1 //I invented the delta
+real distractors.bird_level [0.0 .. 1.0] delta 0.1 //I invented the delta
+real distractors.far_moving_vegetation [0.0 .. 1.0] delta 0.1 //I invented the delta
+real distractors.close_moving_vegetation [0.0 .. 1.0] delta 0.1 //I invented the delta
+real distractors.light_reflection [0.0 .. 1.0] delta 0.1 //I invented the delta
+real distractors.blinking_light [0.0 .. 1.0] delta 0.1 //I invented the delta
+
+// Occulting objects
+real occultants.solid_level [0.0 .. 1.0] delta 0.1 
+real occultants.semi_transparent_level [0.0 .. 1.0] delta 0.1
+
+//Capturing conditions
+real camera.vibration [0.0 .. 1.0] delta 0.5 //I invented the delta
+real camera.focal_change [0.0 .. 1.0] delta 0.5 //I invented the delta
+real camera.pan_motion [0.0 .. 1.0] delta 0.5 //I invented the delta
+real camera.tilt_motion [0.0 .. 1.0] delta 0.5 //I invented the delta
+real camera.altitude [0.0 .. 1.0] delta 0.5 //I invented the delta
+real capture.shadow_level [0.0 .. 1.0] delta 0.5 //I invented the delta
+real capture.global_light_change_level [0.0 .. 1.0] delta 0.5 //I invented the delta
+real capture.local_light_change_level [0.0 .. 1.0] delta 0.5 //I invented the delta
+real capture.heat_haze_level [0.0 .. 1.0] delta 0.5 //I invented the delta
+
+// Signal quality
+enum signal_quality.picture_width [1920,800] //I deduce they can not handle any arbitrary number. Therefore, I modeled it as an enum instead of an int. 800 was not in the real range, I invented it
+enum signal_quality.picture_height [1080, 600] //I deduce they can not handle any arbitrary number. Therefore, I modeled it as an enum instead of an int. 600 was not in the real range, I invented it
+real signal_quality.luminance_mean [0.0 .. 100.0] 		default 72.55 //I don't know which is the real upper limit, but I know the default
+real signal_quality.luminance_dev [85.99 .. 100.0] 		default 85.99 //I don't know which is the real upper limit
+real signal_quality.chrominance_U_mean [16.0 ..240.0] 		default 131.81 
+real signal_quality.chrominance_U_dev [0.0 ..32.0] 		default 16.91
+real signal_quality.chrominance_V_mean [16.0 ..240.0] 		default 119.41
+real signal_quality.chrominance_V_dev [0.0 .. 32.0] 		default 8.07
+real signal_quality.blur_level [0.0 .. 1.0] 		delta 0.2 // I invented the delta
+real signal_quality.static_noise_level [0.0 .. 1.0] 		delta 0.2 // I invented the delta
+real signal_quality.dynamic_noise_level [0.0 .. 1.0] 		delta 0.2 // I invented the delta
+real signal_quality.frame_instability [0.0 .. 1.0] 		delta 0.2 // I invented the delta
+real signal_quality.line_instability [0.0 .. 1.0] 		delta 0.2 // I invented the delta
+real signal_quality.parasitics_level [0.0 .. 1.0] 		delta 0.2 // I invented the delta
+real signal_quality.compression_artefact_level [0.0 .. 1.0] 		delta 0.2 // I invented the delta
+
+
+Descriptions:
+/* 
+ * Old way that may be necessary if the interpreter is not ready to the new way
+att vehicle.identifier is "Integer number : 0=disable, 1=AMX30, .."
+att vehicle.motion is "Floating point number from 0 (static target) to 1 (extremely irregular motion)"
+att vehicle.appearance_change is  "Floating point number from 0 (static appearance) to 1 (extreme changing)"
+att vehicle.shadowed is "Floating point number from 0 (not shadowed) to 1 (extremely shadowed)"
+att vehicle.dust is "Size of dust cloud behind moving vehicle"
+att vehicle.distance is "Distance approximately reconstructed in meters"
+att man.identifier is "Integer number : 0=disable, 1=Soldier, .."
+att man.motion is "Floating point number from 0 (static target) to 1 (extremely irregular motion)"
+att man.appearance_change is "Floating point number from 0 (static appearance) to 1 (extreme changing)"
+att man.shadowed is "Floating point number from 0 (not shadowed) to 1 (extremely shadowed)"
+att man.distance is "Distance approximately reconstructed in meters"
+*/
+att background.identifier is "Integer number from 0 to ..., synthetic background if 0, natural background else"
+att vehicle.dust is "Size of dust cloud behind moving vehicle"
+att man.identifier is "Integer number : 0=disable, 1=Soldier, .."
+att vehicle.identifier is "Integer number : 0=disable, 1=Soldier, .."
+att targets.motion is "Floating point number from 0 (static target) to 1 (extremely irregular motion)"
+att targets.appearance_change is "Floating point number from 0 (static appearance) to 1 (extreme changing)"
+att targets.shadowed is "Floating point number from 0 (not shadowed) to 1 (extremely shadowed)"
+att targets.distance is "Distance approximately reconstructed in meters"
+//.. to be complete
+
+Constraints:
+signal_quality.picture_width < 1920 -> signal_quality.picture_height < 1080  //I invented the constraint
+background.identifier == 0 -> vehicle.dust == 0 //I invented the constraint
+background.identifier != 0 -> vehicle.dust > 0 //I invented the constraint
+
+//there are no Constraints defined by the user. However, we may use the combinations between picture_width and height as examples.
+}

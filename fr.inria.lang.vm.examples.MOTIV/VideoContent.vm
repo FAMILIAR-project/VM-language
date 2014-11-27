@@ -1,0 +1,131 @@
+package fr.inria.lang.vm.examples.MOTIV {
+
+@name "Video Content"
+@version 0.1
+@description "First attempt to determine some branches in video content
+			 	variability based on the document -video content variability 
+				analysis- created by Pierre ROMENTEAU"
+@author "Mauricio AlfŽrez"
+@email mauricio.alferez@inria.fr
+@organization "INRIA, Rennes, France"
+@publication "Pierre ROMENTEAU, 'Video Content Variability Analysis',
+			 Project MOTIV, 19/07/2013: 2-9"	
+@date "August, 2013"
+
+Relationships:
+VideoContent {
+	Scene{
+		Background {
+			oneOf {
+				DenseUrban
+				SemiUrban
+				Urban
+				HumanModifiedNatural
+				WildNatural }
+			Edges
+			SpatialDist
+		}
+		? Objects {
+			? People
+			? Vehicles
+			? Distractors {
+				someOf {
+				MovVeg
+				MovShadow
+				Birds
+				Insects			
+				BlinkingLights
+				GlobalLight
+				LightReflection{
+					someOf {
+						GlassRef	
+						WaterRef }					
+					}
+				}
+			}
+			? OccultingObjects
+		}
+	}
+	CapturingConditions {
+		RelativeMotion 
+		Altitude 
+		LightConditions {
+			Turbulence 
+			oneOf {LowLighting
+				Sunny
+				NightWithArtificial
+				Twilight	
+			}
+			? Shadows
+			Optics
+		}
+	}
+	SignalQuality{
+		Resolution
+		Colorimetry
+		FrequencyDist
+		? Instability {
+			MeanLuminance
+			MeanChrominance
+			HFDist
+		}
+		StaticNoise
+		DynamicNoise
+	}
+}
+
+Attributes:
+
+real Edges.value [0.0..1.0]	
+real SpatialDist.sd = 0.5
+int People.number [0 .. 10]//which is the real upper limit?
+int People.number = 5
+int Vehicles.number [0 .. 10]//*which is the real upper limit?
+enum People.behaviour ['fullStatic', 'static', 'moving']
+enum Vehicles.behaviour ['fullStatic', 'static', 'moving']
+real Distractors.measure [0.0..1.0]
+real OccultingObjects.percent [0.0 .. 1.0]
+enum RelativeMotion.fixation ['fullFixed', 'fixed', 'moving']
+enum RelativeMotion.vibrations ['none', 'smallMotionLike', 'significant']
+enum RelativeMotion.focalLenghtChange ['none', 'significant']
+boolean RelativeMotion.tiltMotion
+enum Altitude.value [0.0, 0.5, 1.0]
+real Turbulence.turbulenceLevel [0.0 .. 1.0]
+enum Shadows.contrast ['high', 'low']
+real Optics.fov [0.0 .. 1.0]
+real Optics.ats [0.0 .. 1.0]
+real Optics.distortion [0.0 .. 1.0]
+real Resolution.value[0.0 .. 1.0]
+real Colorimetry.lsd [0.0 .. 1.0]
+real Colorimetry.csd [0.0 .. 1.0]
+real FrequencyDist.value [0.0 .. 1.0]
+real Instability.value [0.0 .. 1.0]
+real MeanLuminance.value [0.0 .. 1.0]
+real MeanChrominance.value [0.0 .. 1.0]
+real HFDist.value [0.0 .. 1.0]
+real StaticNoise.level [0.0 .. 1.0]
+real DynamicNoise.level [0.0 .. 1.0]
+
+Descriptions:
+feat Edges is ""// we may need a good definition in video content analysis
+feat SpatialDist is "the spatial distribution of high frequencies in the background"
+feat MeanLuminance is "variation of mean luminance"
+feat MeanChrominance is "variation of mean chrominance"
+feat HFDist is "variation of high frequencies distribution (motion blur, auto-focus)"
+att SpatialDist.sd is "standard deviation of high frequency spatial distribution"
+att People.number  is 'number of people in the scene'
+att Vehicles.number is "number of vehicles in the scene"
+att OccultingObjects.percent is 'percentage of occultation for every object of interest
+								 when it is effectively present in the field of view'
+att Optics.fov is 'field of view'
+att Optics.ats is 'apparent target size value'
+att Colorimetry.lsd is 'luminance standard deviation'
+att Colorimetry.csd is 'chrominance standard deviation'
+
+Constraints:
+//not verified examples
+DenseUrban -> Vehicles.number >= 8 && People.number>=8
+SemiUrban -> Vehicles.number<8
+
+//we need more constraints from the partners
+}

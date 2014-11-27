@@ -1,0 +1,44 @@
+@name "MobilePhone_MutiObjectives" 
+@author "Alexandr Murashkin, Michal Antkiewicz, Derek Rayside, Krzysztof Czarnecki"
+@publication "Visualization and Exploration of Optimal Variants in Product Line Engineering"
+Relationships: 
+MobilePhone {
+	Connectivity  {
+		Bluetooth {
+		oneOf {
+			Bluetooth20EDR
+			Bluetooth21EDR
+			Bluetooth40
+			}
+		}
+		GSM
+		? LTE
+		? WiFi
+		? USB
+		Battery { 
+			oneOf {
+				LiBattery1160
+				LiBattery1400
+			}	
+		}
+}
+}
+Attributes:
+int *.productivity
+int *.batterylife
+int *.security
+int *.cost
+
+Objectives:
+objective maximizeTotalProductivity{
+	max ( sum ( *.productivity))
+}
+objective maximizeBatteryLife{
+	max ( sum ( *.batterylife))
+}
+objective maximizeSecurity{
+	max ( sum ( *.security))
+}
+objective maximizeTotalCost{
+	min ( sum ( *.cost))
+}

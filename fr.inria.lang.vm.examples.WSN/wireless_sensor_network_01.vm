@@ -1,0 +1,54 @@
+@name "Wiresless sensor network"
+@version 0.1
+@description 'Nodes in a wireless sensor network in a forest'
+@author 'Ivan Paez'
+@date '11/fev/2014'
+
+Relationships:
+WSN {
+	@RT topology {
+		oneOf{
+				threeG
+				radio
+				wifi
+			}
+	}
+	[1..10]dataCollector
+	[1..100]sensor
+}
+
+Attributes:
+//datacollector
+enum dataCollector.transmittingrate ['low','medium', 'high'] default 'medium'
+enum dataCollector.bateryConsumtionSpeed ['low','medium', 'high'] default 'medium'
+@RT real dataCollector.baterylevel [100.0 .. 0.0] delta 0.1 default 100.0
+
+//sensor
+boolean sensor.temperature default true
+boolean sensor.humidity default false
+boolean sensor.smoke default false
+			
+enum sensor.sensingrate ['low','medium', 'high'] default 'medium'
+enum sensor.bateryConsumtionSpeed ['low','medium', 'high'] default 'medium'
+@RT boolean sensor.powerOn default true
+@RT real sensor.baterylevel [100.0 .. 0.0] delta 0.1 default 100.0
+
+Constraints:
+wifi -> sensor.bateryConsumtionSpeed=='high'
+radio -> sensor.bateryConsumtionSpeed=='low'
+threeG -> sensor.bateryConsumtionSpeed=='medium'
+
+Configurations:
+configuration mostSimple {
+	attribute-value pairs for clone feature: dataCollector clone: mainDataCollector {//I used the verbose way
+		transmittingrate = 'high',
+		bateryConsumtionSpeed = 'high'
+	}
+	attribute-value pairs for clone feature: sensor clone: sensor1 {//I used the verbose way
+		sensingrate = 'high',
+		bateryConsumtionSpeed = 'low',
+		temperature = true,
+		humidity =false,
+		smoke = false
+	}
+}

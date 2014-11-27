@@ -1,0 +1,78 @@
+package fr.inria.lang.vm.VideoSequencesGeneration {
+
+@name "scene variability"
+@version 1.0
+@description "Part of the variability model related to the scene"
+@author "Diverse Team"
+@email benoit.baudry@inria.fr
+@organization "INRIA, Rennes, France"
+@date "March, 2014"
+Relationships:
+sequence {
+	signal_quality
+	cloneBetween 0 and 5 vehicle
+	//. . . 
+}
+
+Attributes:
+@NT string sequence.comment
+@RT int vehicle.speed [0..130] delta 5 default 40
+@ND int *.cost [0 .. 1000] default 150
+real signal_quality.luminance_mean [0.0 .. 32.0] delta 2.0
+				   [32.0 .. 224.0] delta 8.0 
+				   [224.0 .. 255.0] delta 2.0
+				   default 72.55
+//. . . 
+
+//Descriptions: //. . . 
+
+//Constraints:  //. . .
+
+Objectives:
+objective generate_low_cost_configurations {
+	min (sum (*.cost)) 
+}
+//Configurations: //. . .
+
+//Configurations:
+//configuration simple {
+//  scene 
+//   scene.comment = 'an empty urban scene'
+//   background  
+//	urban
+//	! countryside
+//  ! objects
+//}
+//configuration simpleNotVerbose{
+//  scene.comment = 'an empty urban scene'
+//	urban
+//}
+//configuration advancedExtenedVal {
+//  feature-value pairs for attribute: cost {
+//    urban - 400 ,
+//    countryside - 250 ,
+//    objects - 1000
+//  //more pairs feature - value
+//  }
+//  attribute-value pairs for feature: signal_quality {
+//    luminance_mean = 72.55 ,
+//    luminance_dev = 48,
+//    chrominance_U_mean = 128
+//  //Émore rows signal_quality.attribute = value
+//  }
+//  attribute-value pairs for clone feature: vehicle clone: vehicle1 {
+//    identifier = 'Hummer' , 
+//    speed = 50 
+//  //more rows for vehicle1 = value
+//  }
+//}
+//configuration advancedExtendedValNotVerbose {
+//  scene.comment = 'an empty urban scene'
+//  urban
+//  urban
+//  //cost {/*É*/}
+//  //signal_quality {/*É*/}
+//  //vehicle [vehicle1] {/*É*/}
+//}
+
+}

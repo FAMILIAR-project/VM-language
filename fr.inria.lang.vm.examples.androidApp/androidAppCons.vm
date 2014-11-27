@@ -1,0 +1,63 @@
+@name "AndroidApp Constraints" 
+@version 1
+@description "This is the first draft of the constraints in an Android App manifest"
+
+@author "Mauricio Alferez based on http://developer.android.com/guide/topics/manifest/manifest_intro.html"
+@email  alferez.mauricio@gmail.com
+@organization "INRIA, Rennes, France"
+@publication "N/A"
+@date "2014"
+
+package android.constraints {
+import android.relationships.*
+import android.attributes.*
+
+Constraints:
+	manifest.sharedUserLabel requires manifest.sharedUserId 
+	/*
+	 * TO-DO write and complete constraints.  
+	 * 
+	 */
+	//??? android:hardwareAccelerated Whether or not hardware-accelerated rendering should be enabled for all activities and views in this application — "true" if it should be enabled, and "false" if not. The default value is "true" if you've set either minSdkVersion or targetSdkVersion to "14" or higher; otherwise, it's "false".
+	//uses_sdk.minSdkVersion >=14 || uses_sdk.targetSdkVersion >= 14 -> application.&default == 'true' else application.&default == 'false'
+	
+	//En application:
+	//android:requiredAccountType requires API level 18 or higher.
+	//android:restrictedAccountType requires API level 18 or higher.
+	//android:supportsRtl requires API 17 or higher
+	
+	//android:screenOrientation = "reverseLandscape" -> API level >=9.
+	//android:screenOrientation = "reversePortrait" -> API level >=9.
+	//android:screenOrientation = "sensorLandscape" -> API level >=9.
+	//android:screenOrientation = "sensorPortrait" -> API level >=9.
+	
+	//android:screenOrientation = "userLandscape" -> API level >=18.
+	//android:screenOrientation = "userPortrait" -> API level >=18.
+	
+	//android:screenOrientation = "fullSensor" -> API level >=9
+	//android:screenOrientation = "fullUser" -> API level >=18
+	//android:screenOrientation = "locked" -> API level >=18
+	
+	//"portrait" -> <uses-feature android:name="android.hardware.screen.portrait"/>
+	//etc 
+	//read
+	//"landscape", "reverseLandscape", or "sensorLandscape" <-> 
+	
+	
+	//En activity, android:documentLaunchMode
+	//Note: For values other than "none" and "never" the activity must be defined with launchMode="standard". If this attribute is not specified, documentLaunchMode="none" is used.
+
+	//boolean activity.exported //The default value depends on whether the activity contains intent filters.
+	
+	//boolean activity.finishOnTaskLaunch //If this attribute and allowTaskReparenting are both "true", this attribute trumps the other. The affinity of the activity is ignored. The activity is not re-parented, but destroyed
+	
+	//int activity.maxRecents [1..50] //Valid values are 1 through 50 (25 on low memory devices); zero is invalid. This must be an integer value, such as 50. The default value is 16.
+	
+	//android:noHistory 	 This attribute was introduced in API Level 3.
+	
+	//activity.screenOrientation has many constraints related to the api level.
+	
+	//enum activity.windowSoftInputMode The setting must be one of the values listed in the following table, or a combination of one "state..." value plus one "adjust..." value. Setting multiple values in either group — multiple "state..."
+
+	//boolean activity_alias.exported //The default value depends on whether the alias contains intent filters.	
+}

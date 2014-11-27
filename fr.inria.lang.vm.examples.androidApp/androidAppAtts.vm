@@ -1,0 +1,124 @@
+@name "AndroidApp Attributes" 
+@version 1
+@description "This is the first draft of the attributes in an Android App manifest"
+
+@author "Mauricio Alferez based on http://developer.android.com/guide/topics/manifest/manifest_intro.html"
+@email  alferez.mauricio@gmail.com
+@organization "INRIA, Rennes, France"
+@publication "N/A"
+@date "2014"
+
+package android.attributes {
+import android.relationships.*
+
+Attributes:
+//************Manifests**************/
+string manifest._package  //I had to use "_package" because "package" is a reserved word of VM 
+string manifest.sharedUserId 
+string manifest.sharedUserLabel
+int manifest.versionCode  
+string manifest.versionName //raw string or string resource
+enum manifest.installLocation ['auto' , 'internalOnly' , 'preferExternal'] default 'internalOnly'
+
+//************Application**************/
+
+boolean application.allowTaskReparenting default false
+boolean application.allowBackup default true
+string application.backupAgent //The attribute value should be a fully qualified class name (such as, "com.example.project.MyBackupAgent"). However, as a shorthand, if the first character of the name is a period (for example, ".MyBackupAgent"), it is appended to the package name specified in the <manifest> element.
+boolean application.debuggable default false
+string application.description //string resource
+boolean application.enabled default true
+boolean application.hasCode default true
+boolean application.hardwareAccelerated //default true The default value is "true" if you've set either minSdkVersion or targetSdkVersion to "14" or higher; otherwise, it's "false".
+boolean application.icon //refernece to a drawable resource
+boolean application.killAfterRestore default true
+boolean application.largeHeap 
+string application.label //reference to a string resource or a raw string
+string application.logo //a reference to a drawable resource containing the image 
+string application.manageSpaceActivity
+string application.name
+//string application.permission //creo que deberia ser una referencia para un tipo de permiso en el modulo Permissions.
+	//finally, I promoted persmission as a feature.
+boolean  application.persistent default false
+string application.process
+boolean application.restoreAnyVersion default false
+string application.requiredAccountType //default null //The default value is null and indicates that the application can work without any accounts.
+string application.restrictedAccountType //default null, pero esta especificado como string          
+boolean application.supportsRtl default false
+string application.taskAffinity 
+boolean application.testOnly          
+string application.theme //reference to a "resource or theme"
+enum application.uiOptions ["none", "splitActionBarWhenNarrow"] default "none"//["none" , "splitActionBarWhenNarrow"]
+boolean application.vmSafeMode default false
+
+//************Activity**************/
+boolean activity.allowEmbedded default false
+boolean activity.allowTaskReparenting default false
+boolean activity.alwaysRetainTaskState default false
+boolean activity.clearTaskOnLaunch default false
+//enum activity.configChanges ["mcc", "mnc", "locale", "touchscreen", "keyboard", "keyboardHidden", 
+//  						"navigation", "screenLayout", "fontScale", "uiMode",
+//                        "orientation", "screenSize", "smallestScreenSize"]
+//given that the possible valor of this attribute can be a concatenation, like this: locale|navigation|orientation, I modeled it as an or group.
+boolean activity.enabled default true
+boolean activity.excludeFromRecents default false
+boolean activity.exported //The default value depends on whether the activity contains intent filters. 
+boolean activity.finishOnTaskLaunch default false //If this attribute and allowTaskReparenting are both "true", this attribute trumps the other. The affinity of the activity is ignored. The activity is not re-parented, but destroyed.
+boolean activity.hardwareAccelerated default false
+string activity.icon //"drawable resource" 
+string activity.label //"string resource"
+//enum activity.launchMode ["multiple" , "singleTop" ,
+//                              "singleTask" , "singleInstance"]
+enum activity.launchMode ["standard" , "singleTop", "singleTask", "singleInstance"] default "standard"
+int activity.maxRecents [1..50] default 16 //Valid values are 1 through 50 (25 on low memory devices); zero is invalid. 
+boolean activity.multiprocess default false
+string activity.name //There is no default. The name must be specified.
+boolean activity.noHistory  default false
+string activity.parentActivityName  //The name here must match the class name given to the corresponding <activity> element's android:name attribute.
+string activity.permission
+string activity.process
+boolean activity.relinquishTaskIdentity default false 
+enum activity.screenOrientation ["unspecified" , "behind" ,
+                                     "landscape" , "portrait" ,
+                                     "reverseLandscape" , "reversePortrait" ,
+                                     "sensorLandscape" , "sensorPortrait" ,
+                                     "userLandscape" , "userPortrait" ,
+                                     "sensor" , "fullSensor" , "nosensor" ,
+                                     "user" , "fullUser" , "locked"] default "unspecified"
+boolean activity.stateNotNeeded default false
+string activity.taskAffinity //By default, all activities in an application have the same affinity. You can set this attribute to group them differently, and even place activities defined in different applications within the same task. To specify that the activity does not have an affinity for any task, set it to an empty string.
+string activity.theme //"resource or theme"
+enum activity.uiOptions ["none" , "splitActionBarWhenNarrow"] default "none" 
+enum activity.windowSoftInputMode ["stateUnspecified",
+                                       "stateUnchanged", "stateHidden",
+                                       "stateAlwaysHidden", "stateVisible",
+                                       "stateAlwaysVisible", "adjustUnspecified",
+                                       "adjustResize", "adjustPan"] default "stateUnspecified"
+
+//************Intent_filter**************/
+string intent_filter.icon//"drawable resource"
+string intent_filter.label//"string resource"
+int intent_filter.priority [-1000 .. 1000] default 0 //Higher numbers have a higher priority. The value must be greater than -1000 and less than 1000.
+
+//************Meta_data**************
+string meta_data.name
+string meta_data.resource //A reference to a resource
+string meta_data.value
+
+//************Activity_alias**************/
+boolean activity_alias.enabled default false
+boolean activity_alias.exported //The default value depends on whether the alias contains intent filters.
+string activity_alias.icon //"drawable resource"
+string activity_alias.label //"string resource"
+string activity_alias.name
+string activity_alias.permission
+string activity_alias.targetActivity
+
+//************Service**************/
+
+/*
+ * TO-DO: complete the list of attributes
+ * 
+ */
+}
+

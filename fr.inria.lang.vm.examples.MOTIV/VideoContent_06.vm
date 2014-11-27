@@ -1,0 +1,115 @@
+package fr.inria.lang.vm.examples.MOTIV {
+
+@name "Video Content"
+@version 0.5
+@description "Sixth attempt to model the video content variability based 
+				on detailed exam of consistency between VSG and VM Model"
+@author "Mauricio AlfŽrez"
+@email mauricio.alferez@inria.fr
+@organization "INRIA, Rennes, France"
+@publication "Pierre ROMENTEAU, 'Video Content Variability Analysis',
+			 Project MOTIV, 19/07/2013: 2-9"	
+@date "January, 2014"
+
+Relationships:
+sequence {
+	scene{
+		background
+		? objects {
+			targets{
+				[1..5] vehicle
+				//[1..5] man
+			}
+			? distractors
+			? occultants
+		}
+	}
+	capturingConditions{
+		camera
+		capture
+	}
+	signal_quality
+}
+
+Attributes:
+
+//sequence
+@NT string sequence.identifier
+@NT string sequence.comment
+
+//background
+enum background.identifier ['CountrySide', '']//,'Desert', 'Jungle', 'SemiUrban', 'Urban', 'Mountain'] default 'CountrySide'
+
+//targets
+enum vehicle.identifier ['AMX30','BMP-1_Russia','KrAZ150', 'MowagPiragnha', 'ReaultRTM2000', 'Tatra815'] default 'AMX30' // 13 vehicles. and the 0 is desactivated.
+//enum man.identifier  ['Civilian', 'SoldierBlackSuit','SoldierCamouflagedSuit'] default "SoldierCamouflagedSuit"
+int vehicle.trayectory [0..15] delta 1  default 0
+//int man.trayectory[0..15] delta 1  default 0
+int vehicle.speed [0..130]   	delta 5 default 40
+int vehicle.size [0..10] 		delta 1 default 4 //I invented the size
+//real man.speed [0.0..30.0] 		delta 0.5 default 3.0 //kilometers
+real vehicle.appearance_change [0.0 .. 1.0] delta 0.1 default 0.5 
+//real man.appearance_change [0.0 .. 1.0] delta 0.1 default 0.8
+real targets.shadowed [0.0 .. 1.0] delta 0.25 default 0.25 
+int vehicle.dust //default 0 //see constraints at the end
+
+//Distractors
+real distractors.butterfly_level [0.0 .. 1.0] 		delta 0.25 default 0.0 
+real distractors.bird_level [0.0 .. 1.0] 			delta 0.25 default 0.0  
+real distractors.far_moving_vegetation [0.0 .. 1.0] delta 0.1 default 0.0 
+real distractors.close_moving_vegetation [0.0 .. 1.0] delta 0.1 default 0.0  
+real distractors.light_reflection [0.0 .. 1.0] 		delta 0.25 default 0.0  
+real distractors.blinking_light [0.0 .. 1.0] 		delta 0.1 default 0.0 
+
+// Occulting objects
+real occultants.solid_level [0.0 .. 1.0] 			delta 0.1 default 0.2 
+real occultants.semi_transparent_level [0.0 .. 1.0] delta 0.1 default 0.2 
+
+//Capturing conditions
+real camera.vibration [0.0 .. 1.0]		delta 0.1 default 0.0 
+real camera.focal_change [0.0 .. 1.0]	delta 0.1 default 0.0 
+real camera.pan_motion [0.0 .. 1.0]		delta 0.25 default 0.0 
+real camera.tilt_motion [0.0 .. 1.0] 	delta 0.25 default 0.0 
+real camera.altitude [0.0 .. 10.0] 		delta 0.5 default 0.0 
+real capture.shadow_level [0.0 .. 1.0] 	delta 0.1 default 0.0 
+real capture.global_light_change_level [0.0 .. 1.0] delta 0.1 default 0.0  
+real capture.local_light_change_level [0.0 .. 1.0] 	delta 0.1 default 0.0 
+real capture.heat_haze_level [0.0 .. 1.0] delta 0.25 default 0.0  
+
+// Signal quality
+enum signal_quality.picture_size ['1920x180', '1280x768', '720x576', '640x480', '320x240'] default '1280x768'
+real signal_quality.luminance_mean [0.0 .. 32.0] delta 2.0
+								   [32.0 .. 224.0] delta 8.0 
+								   [224.0 .. 255.0] delta 2.0
+								   default 72.55
+real signal_quality.luminance_dev [0.0 .. 8.0] delta 1.0
+								  [8.0 .. 32.0] delta 2.0
+								  [32.0 .. 64.0] delta 4.0
+								  default 48.0
+real signal_quality.chrominance_U_mean [112.0 .. 140.0] 	delta 1.0 default 128.0
+real signal_quality.chrominance_U_dev [0.0 ..16.0] 		delta 1.0 default 8.0
+real signal_quality.chrominance_V_mean [112.0 ..140.0] 	delta 1.0 default 128.0  
+real signal_quality.chrominance_V_dev [0.0 ..16.0] 		delta 1.0 default 8.0 
+real signal_quality.blur_level [0.0 .. 1.0] 			delta 0.2 default 0.2 
+real signal_quality.static_noise_level [0.0 .. 1.0] 	delta 0.2 default 0.2 
+real signal_quality.dynamic_noise_level [0.0 .. 1.0] 	delta 0.2 default 0.2 
+real signal_quality.frame_instability [0.0 .. 1.0] 		delta 0.2 default 0.2 
+real signal_quality.line_instability [0.0 .. 1.0] 		delta 0.2 default 0.2 
+real signal_quality.parasitics_level [0.0 .. 1.0] 		delta 0.2 default 0.2 
+real signal_quality.compression_artefact_level [0.0 .. 1.0]  delta 0.2 default 0.2
+
+Descriptions:
+
+att vehicle.dust is "Size of dust cloud behind moving vehicle measured in meters"
+//att targets.motion is "Floating point number from 0.0 (static target) to 1.0 (extremely irregular motion)."
+att targets.appearance_change is "Floating point number from 0.0 (static appearance) to 1.0 (extreme changing). Men have more appearance change than vehicles as they can move arms and legs, sits, etc."
+att targets.shadowed is "Floating point number from 0.0 (not shadowed) to 1.0 (extremely shadowed)"
+//att targets.distance is "Distance approximately reconstructed in meters"
+feat signal_quality is ""
+//.. the list of descriptions should be completed by InPixal.
+
+Constraints:
+background.identifier=='Desert' -> vehicle.dust == vehicle.size * 3
+background.identifier=='CountrySide' -> vehicle.dust == vehicle.size
+background.identifier== ('Urban' || 'SemiUrban') -> vehicle.dust == 0
+}

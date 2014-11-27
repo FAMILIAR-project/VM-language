@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/fr.inria.lang.vm/src-gen" editDirectory="/fr.inria.lang.vm.edit/src"
+    editorDirectory="/fr.inria.lang.vm.editor/src" modelPluginID="fr.inria.lang.vm"
+    forceOverwrite="true" modelName="VM" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="fr.inria.lang.vm.edit"
+    editorPluginID="fr.inria.lang.vm.editor" runtimeVersion="2.9">
+  <genPackages prefix="VM" basePackage="fr.inria.lang" disposableProviderFactory="true"
+      fileExtensions="vm" ecorePackage="VM.ecore#/">
+    <genClasses ecoreClass="VM.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Model/blocks"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//VmBlock"/>
+    <genClasses ecoreClass="VM.ecore#//PackageDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//PackageDeclaration/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//PackageDeclaration/blocks"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//ImportDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//ImportDeclaration/importedNamespace"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//MetaDataDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//MetaDataDeclaration/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//MetaDataDeclaration/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//MetaDataDeclaration/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//MetaDataDeclaration/author"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//MetaDataDeclaration/email"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//MetaDataDeclaration/organization"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//MetaDataDeclaration/publication"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//MetaDataDeclaration/date"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Email">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Email/username"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Email/domain"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Version">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Version/main"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Version/tail"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Relationships">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Relationships/root"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//FeatureHierarchy">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//FeatureHierarchy/parent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//FeatureHierarchy/children"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//FeatureDefinition"/>
+    <genClasses ecoreClass="VM.ecore#//Feature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Feature/notTranslatable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Feature/runTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Feature/notDecidable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Feature/optional"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Feature/min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Feature/max"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Feature/name"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//FeaturesGroup">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//FeaturesGroup/groupedFeatures"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Xorgroup"/>
+    <genClasses ecoreClass="VM.ecore#//Orgroup"/>
+    <genClasses ecoreClass="VM.ecore#//CardinalityBased">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//CardinalityBased/min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//CardinalityBased/max"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//CardinalityBased/all"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Attributes">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Attributes/attrDefs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Attributes/attrValuations"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//AttrDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//AttrDef/notTranslatable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//AttrDef/runTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//AttrDef/notDecidable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//AttrDef/basicAttrDef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//AttrDef/enumAttrDef"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//BasicAttrDef"/>
+    <genClasses ecoreClass="VM.ecore#//BooleanAttrDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//BooleanAttrDef/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//BooleanAttrDef/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//BooleanAttrDef/default"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//StringAttrDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//StringAttrDef/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//StringAttrDef/value"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//StringAttrDef/default"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//IntegerAttrDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//IntegerAttrDef/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//IntegerAttrDef/default"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//IntegerAttrDefBounded">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//IntegerAttrDefBounded/complements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//IntegerAttrDefBounded/complement"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//IntegerAttrDefComplement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//IntegerAttrDefComplement/min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//IntegerAttrDefComplement/max"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//IntegerAttrDefComplement/delta"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//IntegerAttrDefUnbounded">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//IntegerAttrDefUnbounded/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//RealAttrDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//RealAttrDef/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//RealAttrDef/default"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//RealAttrDefBounded">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//RealAttrDefBounded/complement"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//RealAttrDefComplement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//RealAttrDefComplement/min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//RealAttrDefComplement/max"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//RealAttrDefComplement/delta"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//RealAttrDefUnbounded">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//RealAttrDefUnbounded/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//EnumAttrDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//EnumAttrDef/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//EnumStringDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//EnumStringDef/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//EnumStringDef/default"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//EnumIntegerDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//EnumIntegerDef/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//EnumIntegerDef/default"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//EnumRealDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//EnumRealDef/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//EnumRealDef/default"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//BoolDefaultDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//BoolDefaultDef/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//StringDefaultDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//StringDefaultDef/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//IntegerDeltaDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//IntegerDeltaDef/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//IntegerDefaultDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//IntegerDefaultDef/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//RealDeltaDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//RealDeltaDef/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//RealDefaultDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//RealDefaultDef/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Descriptions">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Descriptions/featuresDescriptions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Descriptions/attributesDescriptions"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//FeatureDescription">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//FeatureDescription/refFeat"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//FeatureDescription/description"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//AttributeDescription">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//AttributeDescription/refFeat"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//AttributeDescription/refAtt"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//AttributeDescription/description"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Constraints">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Constraints/constraints"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Constraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Constraint/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Constraint/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//ComplexExpression"/>
+    <genClasses ecoreClass="VM.ecore#//Expression"/>
+    <genClasses ecoreClass="VM.ecore#//SpecialExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//SpecialExpression/op"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//SpecialExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//StringExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//StringExpression/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//PrimitiveExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//PrimitiveExpression/featureID"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//PrimitiveExpression/head"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//PrimitiveExpression/refAtt"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//BooleanExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//BooleanExpression/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//BooleanExpression/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//BooleanExpression/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//BooleanExpression/expression_list"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//BrackedExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//BrackedExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//NumericExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//NumericExpression/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//NumericExpression/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//NumericExpression/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//NumericExpression/expression_list"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//NumericExpression_List">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//NumericExpression_List/ex"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//BooleanExpression_List">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//BooleanExpression_List/ex"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Objectives">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Objectives/objectives"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Objective">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Objective/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Objective/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Objective/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//ObjectiveExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//ObjectiveExpression/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//ObjectiveExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Configurations">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Configurations/configurations"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Configuration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Configuration/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Configuration/booleanValuation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Configuration/extendedValuation"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//BooleanValuation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//BooleanValuation/notSelected"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//BooleanValuation/feature"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//ExtendedValuation"/>
+    <genClasses ecoreClass="VM.ecore#//BasicAttrValuation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//BasicAttrValuation/head"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//BasicAttrValuation/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//RealAttrValuation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//RealAttrValuation/refAtt"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//IntegerAttrValuation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//IntegerAttrValuation/refAtt"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//BooleanAttrValuation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//BooleanAttrValuation/refAtt"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//StringAttrValuation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//StringAttrValuation/refAtt"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//AdvancedAttrValuation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//AdvancedAttrValuation/attVsVal"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//AdvancedAttrValuation/featVsVal"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//AdvancedAttrValuation/attVsValForMultiFeature"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//TableBasedValuationByFeatureAndClone">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//TableBasedValuationByFeatureAndClone/refFeature"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//TableBasedValuationByFeatureAndClone/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//TableBasedValuationByFeatureAndClone/pairs"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//TableBasedValuationByFeature">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//TableBasedValuationByFeature/refFeature"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//TableBasedValuationByFeature/pairs"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//PairAttributeValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//PairAttributeValue/refAtt"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//PairAttributeValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//TableBasedValuationByAttribute"/>
+    <genClasses ecoreClass="VM.ecore#//TableBasedValuationByAttributeForInteger">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//TableBasedValuationByAttributeForInteger/refAtt"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//TableBasedValuationByAttributeForInteger/pairs"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//PairFeatureInteger">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//PairFeatureInteger/refFeat"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//PairFeatureInteger/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//TableBasedValuationByAttributeForReal">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//TableBasedValuationByAttributeForReal/refAtt"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//TableBasedValuationByAttributeForReal/pairs"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//PairFeatureReal">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//PairFeatureReal/refFeat"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//PairFeatureReal/value"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Boolean_ATT_ID"/>
+    <genClasses ecoreClass="VM.ecore#//String_ATT_ID"/>
+    <genClasses ecoreClass="VM.ecore#//Integer_ATT_ID"/>
+    <genClasses ecoreClass="VM.ecore#//Real_ATT_ID"/>
+    <genClasses ecoreClass="VM.ecore#//Enum_String_ATT_ID"/>
+    <genClasses ecoreClass="VM.ecore#//Enum_Integer_ATT_ID"/>
+    <genClasses ecoreClass="VM.ecore#//Enum_Real_ATT_ID"/>
+    <genClasses ecoreClass="VM.ecore#//AttHead">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//AttHead/forAllFeatures"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference VM.ecore#//AttHead/ownedFeature"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Abstract_ATT_ID">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Abstract_ATT_ID/head"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute VM.ecore#//Abstract_ATT_ID/name"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//If">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//If/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//If/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//LeftImplication">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//LeftImplication/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//LeftImplication/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//RightImplication">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//RightImplication/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//RightImplication/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//BiImplication">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//BiImplication/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//BiImplication/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Or">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Or/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Or/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//And">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//And/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//And/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Equality">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Equality/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Equality/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Inequality">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Inequality/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Inequality/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Less">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Less/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Less/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Lessequal">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Lessequal/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Lessequal/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Greater">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Greater/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Greater/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Greaterequal">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Greaterequal/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Greaterequal/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Plus">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Plus/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Plus/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Minus">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Minus/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Minus/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Multiplication">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Multiplication/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Multiplication/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Division">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Division/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Division/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Excludes">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Excludes/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Excludes/right"/>
+    </genClasses>
+    <genClasses ecoreClass="VM.ecore#//Requires">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Requires/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference VM.ecore#//Requires/right"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
