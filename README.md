@@ -6,7 +6,7 @@ Language for variability modeling (VM)
 ### General Information
 Please visit: http://mao2013.github.io/VM/
 
-### How to Install and Use VM v.2.1 by @mao2013
+### How to Install and Use VM v.2.1 by @mauricioalferez
   - Close or uninstall all the projects org.xtext.example.vm.* in your workspace or plugins directory. Those plugins represent the previous version 1.0 or 2.0 (https://github.com/ViViD-DiverSE/VM-Source) of VM.
   - Import all the projects starting by "fr.inria.lang.vm" from the repository.
   - Right click on the fr.inria.lang.vm folder.
